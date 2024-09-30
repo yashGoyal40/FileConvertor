@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // Amplify.configure(awsconfig);
 
 
+
 const route = createBrowserRouter([
   {
     path: "/",
@@ -18,16 +19,12 @@ const route = createBrowserRouter([
       { path: "/", element:<Content />},
       { path: "csvtojson", element: <Csvtojson /> },
       { path: "jsontocsv", element: <Jsontocsv /> },
+      { path: "auth/login", element: <Login /> },
+      { path: "auth/signup", element: <SignUp /> },
+
     ],
   },
-  {
-    path: "/auth",
-    element: <Login />,
-    children: [
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <SignUp /> },
-    ],
-  },
+  
 ]);
 
 createRoot(document.getElementById('root')).render(
