@@ -4,12 +4,18 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerFooter, DrawerClose, DrawerT
 import { Button } from './ui/button'; 
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel } from './ui/alert-dialog'; 
 
+import { useSelector } from "react-redux"; // Import useSelector
+import { isLoggedIn } from '../store/authSlice'; // Import isLoggedIn selector
+import NOLoggedIn from './NOLoggedIn';
+
 function Jsontocsv() {
   const [jsonContent, setJsonContent] = useState('');
   const [output, setOutput] = useState('');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+  const isAuthenticated = useSelector(isLoggedIn);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -71,6 +77,10 @@ function Jsontocsv() {
     link.click();
     URL.revokeObjectURL(url);
   };
+
+  if (!isAuthenticated) {
+    return (<NOLoggedIn />)
+  }
 
   return (
     <div className="relative min-h-screen flex flex-col bg-black overflow-hidden">

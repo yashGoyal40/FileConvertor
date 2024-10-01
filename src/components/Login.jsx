@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { signIn, resetPassword, confirmResetPassword } from "@aws-amplify/auth"; 
 import { login } from "@/store/authSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link here
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -13,18 +13,18 @@ const Login = () => {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [forgotPasswordCode, setForgotPasswordCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
       await signIn({
-        username:username,
-        password:password
+        username: username,
+        password: password,
       });
-      dispatch(login(username))
-      navigate("/")
+      dispatch(login(username));
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
@@ -32,7 +32,7 @@ const Login = () => {
 
   const handleForgotPassword = async () => {
     try {
-      await resetPassword({username:username}); // Send reset password code
+      await resetPassword({ username: username }); // Send reset password code
       setIsForgotPassword(true);
     } catch (err) {
       setError(err.message);
@@ -41,13 +41,11 @@ const Login = () => {
 
   const handleConfirmForgotPassword = async () => {
     try {
-      await confirmResetPassword(
-        {
-          username:username,
-          confirmationCode:forgotPasswordCode,
-          newPassword:newPassword
-        }
-      ); // Confirm reset password
+      await confirmResetPassword({
+        username: username,
+        confirmationCode: forgotPasswordCode,
+        newPassword: newPassword,
+      }); // Confirm reset password
       setError("Password reset successful. Please log in with your new password.");
       setIsForgotPassword(false);
     } catch (err) {
@@ -147,6 +145,11 @@ const Login = () => {
                 </div>
               )}
             </CardContent>
+            <CardFooter>
+              <p className="text-center text-sm text-gray-400">
+                Don't have an account? <Link to="/auth/signup" className="text-blue-500 hover:underline">Sign Up</Link>
+              </p>
+            </CardFooter>
           </Card>
         </div>
       </div>

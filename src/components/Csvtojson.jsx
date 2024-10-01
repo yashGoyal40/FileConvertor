@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux"; // Import useSelector
+import { isLoggedIn } from '../store/authSlice'; // Import isLoggedIn selector
 import {
   Card,
   CardHeader,
@@ -25,6 +27,7 @@ import {
   AlertDialogDescription,
   AlertDialogCancel,
 } from "./ui/alert-dialog";
+import NOLoggedIn from "./NOLoggedIn";
 
 function Csvtojson() {
   const [csvContent, setCsvContent] = useState("");
@@ -32,6 +35,9 @@ function Csvtojson() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  
+  // Use useSelector to check if the user is logged in
+  const isAuthenticated = useSelector(isLoggedIn);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -97,6 +103,11 @@ function Csvtojson() {
     URL.revokeObjectURL(url);
   };
 
+  // Render nothing if not authenticated
+  if (!isAuthenticated) {
+    return (<NOLoggedIn />);
+  }
+
   return (
     <div className="relative min-h-screen flex flex-col bg-black overflow-hidden">
       <div
@@ -144,26 +155,26 @@ function Csvtojson() {
               </pre>
             </div>
             <DrawerFooter className="flex justify-between">
-            <div className="flex flex-wrap justify-between w-full">
-              <Button
-                variant="secondary"
-                onClick={handleCopy}
-                className="flex-1 mx-2 my-2"
-              >
-                Copy
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={handleDownload}
-                className="flex-1 mx-2 my-2"
-              >
-                Download
-              </Button>
-              <DrawerClose asChild>
-                <Button variant="destructive" className="flex-1 mx-2 my-2">
-                  Close
+              <div className="flex flex-wrap justify-between w-full">
+                <Button
+                  variant="secondary"
+                  onClick={handleCopy}
+                  className="flex-1 mx-2 my-2"
+                >
+                  Copy
                 </Button>
-              </DrawerClose>
+                <Button
+                  variant="secondary"
+                  onClick={handleDownload}
+                  className="flex-1 mx-2 my-2"
+                >
+                  Download
+                </Button>
+                <DrawerClose asChild>
+                  <Button variant="destructive" className="flex-1 mx-2 my-2">
+                    Close
+                  </Button>
+                </DrawerClose>
               </div>
             </DrawerFooter>
           </DrawerContent>

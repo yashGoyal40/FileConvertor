@@ -12,10 +12,8 @@ function App() {
       </section>
 
       <section id="content-section">
-        {!loggedIn && <Login />}
-        {loggedIn && <Outlet />}
+       <Outlet />
       </section>
-
 
       <section id="footer-section">
         <Footer />
