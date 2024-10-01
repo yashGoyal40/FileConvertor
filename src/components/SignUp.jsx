@@ -20,8 +20,19 @@ const SignUp = () => {
   };
 
   return (
+    <div className="relative min-h-screen flex flex-col bg-black overflow-hidden">
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundImage: `linear-gradient(to right, rgba(75, 75, 75, 0.3) 1px, transparent 1px), 
+                          linear-gradient(to bottom, rgba(75, 75, 75, 0.3) 1px, transparent 1px)`,
+        backgroundSize: "40px 40px",
+        zIndex:0,
+      }}
+    ></div>
+
     <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md z-10">
         <Card className="bg-neutral-900">
           <CardHeader>
             <CardTitle className="text-white">Sign Up</CardTitle>
@@ -107,6 +118,7 @@ const SignUp = () => {
           </CardFooter>
         </Card>
       </div>
+    </div>
     </div>
   );
 };

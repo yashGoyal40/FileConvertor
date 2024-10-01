@@ -4,11 +4,6 @@ import App from './App.jsx';
 import './App.css';
 import { Csvtojson, Jsontocsv, SignUp, Login, Content } from './components';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-// import { Amplify } from 'aws-amplify';
-// import awsconfig from '../asw-exports.js'; 
-
-// Amplify.configure(awsconfig);
-
 
 
 const route = createBrowserRouter([
