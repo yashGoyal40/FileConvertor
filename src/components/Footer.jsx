@@ -5,7 +5,7 @@ function Footer() {
       <div className="relative z-10 w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a className="flex items-center mb-4 sm:mb-0 space-x-3">
-            <img src="logo.ico" className="h-8" alt="Flowbite Logo" />
+            <img src={"/logo.ico"} className="h-8" alt="Flowbite Logo" />
             <span className="text-2xl font-semibold">File Convertor</span>
           </a>
           <ul className="flex flex-wrap items-center text-sm font-medium">

@@ -1,9 +1,25 @@
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { signOut } from "@aws-amplify/auth";
+import { logout } from "../store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { sliceUsername, isLoggedIn } from "../store/authSlice";
+// import logo form "/logo.ico"
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const username = useSelector(sliceUsername);
+  const loggedIn = useSelector(isLoggedIn);
+
+  const handleLogOut = async () => {
+    await signOut({ username: username });
+    dispatch(logout());
+  };
+
+  // Extract the part before "@" from the email
+  const displayName = username ? username.split("@")[0] : '';
 
   return (
     <>
@@ -11,21 +27,31 @@ function Header() {
         <nav className="bg-black border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <Link to="/" className="flex items-center">
-              <img src="logo.ico" className="mr-3 h-6 sm:h-9" alt="My Logo" />
+              <img src={"/logo.ico"} className="mr-3 h-6 sm:h-9" alt="My Logo" />
               <span className="self-center text-xl font-semibold whitespace-nowrap text-white">
-                File Convertor
+                File Converter
               </span>
             </Link>
 
             <div className="flex items-center lg:order-2">
-              <div className="space-x-4 hidden lg:flex">
+              {loggedIn ? (
+                <div className="text-white mr-4">{displayName}</div>
+              ) : (
+                <div className="space-x-4 hidden lg:flex">
+                  <Link to="/auth/login">
+                    <Button variant="outline">Login</Button>
+                  </Link>
+                  <Link to="/auth/signup">
+                    <Button variant="outline">Sign Up</Button>
+                  </Link>
+                </div>
+              )}
+              
+              {loggedIn && (
                 <Link to="/auth/login">
-                  <Button variant="outline">Login</Button>
+                  <Button variant="outline" onClick={handleLogOut}>Log Out</Button>
                 </Link>
-                <Link to="/auth/signup">
-                  <Button variant="outline">Sign Up</Button>
-                </Link>
-              </div>
+              )}
 
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -96,6 +122,11 @@ function Header() {
                     <Link to="/auth/signup">
                       <Button variant="outline" className="w-full">
                         Sign Up
+                      </Button>
+                    </Link>
+                    <Link to="/auth/login">
+                      <Button variant="outline" className="w-full" onClick={handleLogOut}>
+                        Log Out
                       </Button>
                     </Link>
                   </div>

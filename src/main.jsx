@@ -4,7 +4,12 @@ import App from './App.jsx';
 import './App.css';
 import { Csvtojson, Jsontocsv, SignUp, Login, Content } from './components';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {Amplify} from 'aws-amplify';
+import awsExports from './aws-exports';
+import { Provider } from 'react-redux';
+import myStore from './store/index.js';
 
+Amplify.configure(awsExports);
 
 const route = createBrowserRouter([
   {
@@ -24,6 +29,8 @@ const route = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={myStore}>
     <RouterProvider router={route} />
+    </Provider>
   </StrictMode>,
 );

@@ -1,0 +1,20 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fileconvertor-prod-0947e-authRole",
+      "UnauthRoleArn": "arn:aws:iam::121222884351:role/amplify-fileconvertor-prod-0947e-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::121222884351:role/amplify-fileconvertor-prod-0947e-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-fileconvertor-prod-0947e-deployment",
+      "UnauthRoleName": "amplify-fileconvertor-prod-0947e-unauthRole",
+      "StackName": "amplify-fileconvertor-prod-0947e",
+      "StackId": "arn:aws:cloudformation:ap-south-1:121222884351:stack/amplify-fileconvertor-prod-0947e/889f1150-7f97-11ef-8cde-069301d7aa6f",
+      "AmplifyAppId": "d1vuotemsm1djj"
+    },
+    "categories": {
+      "auth": {
+        "fileconvertor7b8049a0": {}
+      }
+    }
+  }
+}

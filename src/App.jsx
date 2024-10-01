@@ -1,7 +1,10 @@
 import { Outlet } from "react-router";
-import { Header, Footer } from "./components";
+import { Header, Footer, Login } from "./components";
+import { useSelector } from "react-redux";
+import { isLoggedIn } from "./store/authSlice";
 
 function App() {
+  const loggedIn = useSelector(isLoggedIn)
   return (
     <>
       <section id="header-section">
@@ -9,7 +12,8 @@ function App() {
       </section>
 
       <section id="content-section">
-        <Outlet />
+        {!loggedIn && <Login />}
+        {loggedIn && <Outlet />}
       </section>
 
 
