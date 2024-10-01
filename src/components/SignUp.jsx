@@ -88,7 +88,7 @@ const SignUp = () => {
         username:formData.email,
         password:formData.password
       }); // Automatically sign in after confirmation
-      dispatch(login(formData.email))
+      dispatch(login(formData.emailn))
       navigate("/")
     } catch (error) {
       setMessage(`Error: ${error.message}`);

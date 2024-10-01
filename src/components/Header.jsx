@@ -5,7 +5,6 @@ import { signOut } from "@aws-amplify/auth";
 import { logout } from "../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { sliceUsername, isLoggedIn } from "../store/authSlice";
-// import logo form "/logo.ico"
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,8 +33,9 @@ function Header() {
             </Link>
 
             <div className="flex items-center lg:order-2">
+              {/* Desktop View */}
               {loggedIn ? (
-                <div className="text-white mr-4">{displayName}</div>
+                <div className="text-white mr-4 hidden lg:block">{displayName}</div>
               ) : (
                 <div className="space-x-4 hidden lg:flex">
                   <Link to="/auth/login">
@@ -46,13 +46,14 @@ function Header() {
                   </Link>
                 </div>
               )}
-              
+
               {loggedIn && (
                 <Link to="/auth/login">
-                  <Button variant="outline" onClick={handleLogOut}>Log Out</Button>
+                  <Button variant="outline" className="hidden lg:block" onClick={handleLogOut}>Log Out</Button>
                 </Link>
               )}
 
+              {/* Mobile Menu Button */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 data-collapse-toggle="mobile-menu-2"
@@ -89,6 +90,7 @@ function Header() {
               </button>
             </div>
 
+            {/* Mobile Menu */}
             <div
               className={`${
                 menuOpen ? "block" : "hidden"
@@ -112,25 +114,35 @@ function Header() {
                     Contact
                   </a>
                 </li>
-                <li className="block lg:hidden">
-                  <div className="flex justify-center space-x-4 mt-6 mb-4">
-                    <Link to="/auth/login">
-                      <Button variant="outline" className="w-full">
-                        Login
-                      </Button>
-                    </Link>
-                    <Link to="/auth/signup">
-                      <Button variant="outline" className="w-full">
-                        Sign Up
-                      </Button>
-                    </Link>
-                    <Link to="/auth/login">
-                      <Button variant="outline" className="w-full" onClick={handleLogOut}>
-                        Log Out
-                      </Button>
-                    </Link>
-                  </div>
-                </li>
+                
+                {/* Mobile conditional rendering */}
+                {loggedIn ? (
+                  <li className="block lg:hidden">
+                    <div className="flex justify-center space-x-4 mt-6 mb-4">
+                      <div className="text-white mr-4">{displayName}</div>
+                      <Link to="/auth/login">
+                        <Button variant="outline" className="w-full" onClick={handleLogOut}>
+                          Log Out
+                        </Button>
+                      </Link>
+                    </div>
+                  </li>
+                ) : (
+                  <li className="block lg:hidden">
+                    <div className="flex justify-center space-x-4 mt-6 mb-4">
+                      <Link to="/auth/login">
+                        <Button variant="outline" className="w-full">
+                          Login
+                        </Button>
+                      </Link>
+                      <Link to="/auth/signup">
+                        <Button variant="outline" className="w-full">
+                          Sign Up
+                        </Button>
+                      </Link>
+                    </div>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
